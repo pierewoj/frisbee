@@ -22,3 +22,24 @@ Results:
 
 Environment: laptop with Apple M2 Max chip and 32GB RAM
 
+## Usage
+
+It's pretty straightforward, see one of the test:
+```java
+// Arrange
+BlockFlatIndex idx = new BlockFlatIndex(2);
+idx.add(1, new float[]{0, 1});
+idx.add(2, new float[]{0, -1});
+idx.add(3, new float[]{-1, 0});
+idx.add(4, new float[]{1, 0});
+idx.add(5, new float[]{0, 0.5f});
+
+// Act
+List<QueryRes> res = idx.query(2, new float[]{0, 2});
+
+// Assert
+assertThat(res).containsExactly(
+        new QueryRes(1, 5),
+        new QueryRes(2, 1)
+);
+```
