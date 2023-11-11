@@ -11,19 +11,19 @@ class BlockFlatIndexTest {
     public void test() {
         // Arrange
         BlockFlatIndex idx = new BlockFlatIndex(2);
-        idx.add(1, new float[]{0, 1});
-        idx.add(2, new float[]{0, -1});
-        idx.add(3, new float[]{-1, 0});
-        idx.add(4, new float[]{1, 0});
-        idx.add(5, new float[]{0, 0.5f});
+        idx.add(1 /*id*/, new float[]{0, 1});
+        idx.add(2 /*id*/, new float[]{0, -1});
+        idx.add(3 /*id*/, new float[]{-1, 0});
+        idx.add(4 /*id*/, new float[]{1, 0});
+        idx.add(5 /*id*/, new float[]{0.110432f, 0.993884f});
 
         // Act
-        List<QueryRes> res = idx.query(2, new float[]{0, 2});
+        List<QueryRes> res = idx.query(2, new float[]{0.5f, 0.5f});
 
         // Assert
         assertThat(res).containsExactly(
-                new QueryRes(1, 5),
-                new QueryRes(2, 1)
+                new QueryRes(0.5f /*dist*/, 1 /*id*/),
+                new QueryRes(0.552158f /*dist*/, 5 /*id*/)
         );
     }
 
