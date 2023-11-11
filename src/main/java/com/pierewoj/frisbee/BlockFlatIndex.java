@@ -125,20 +125,20 @@ public class BlockFlatIndex {
                 .sorted(Comparator.comparingInt(Map.Entry::getValue))
                 .toList();
         SimpleMatrix vecM = new SimpleMatrix(vec);
-        SimpleMatrix dists = block.mult(vecM);
-        PriorityQueue<QueryRes> res = new PriorityQueue<>(Comparator.comparingDouble(QueryRes::dist));
+        SimpleMatrix dotProducts = block.mult(vecM);
+        PriorityQueue<QueryRes> res = new PriorityQueue<>(Comparator.comparingDouble(QueryRes::similarity));
         for (int i = 0; i < block.getNumRows(); i++) {
-            double dist = dists.get(i);
+            double similarity = dotProducts.get(i);
             Integer id = idToBlockLocationMap.inverse().get(i);
             if (id == null) {
                 continue;
             }
-            res.add(new QueryRes((float) dist, id));
+            res.add(new QueryRes((float) similarity, id));
             while (res.size() > k) {
                 res.remove();
             }
         }
-        return res.stream().toList();
+        return res.stream().sorted(Comparator.comparing(QueryRes::similarity).reversed()).toList();
     }
 
     private void compact() {
