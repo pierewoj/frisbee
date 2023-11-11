@@ -24,7 +24,7 @@ Environment: laptop with Apple M2 Max chip and 32GB RAM
 
 ## Usage
 
-It's pretty straightforward, see one of the test:
+It's pretty straightforward, see one of the tests:
 ```java
 // Arrange
 BlockFlatIndex idx = new BlockFlatIndex(2);
